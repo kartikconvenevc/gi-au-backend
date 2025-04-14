@@ -13,11 +13,21 @@ const AuUserService = {
     );
     return result.rows;
   },
-  
 
   getById: async (id) => {
     const res = await db.query('SELECT * FROM au_users WHERE id = $1', [id]);
     return res.rows[0];
+  },
+
+  getAuUsersByProductId: async (productId) => {
+    const result = await db.query(
+      `SELECT au_users.*
+       FROM au_users
+       INNER JOIN products ON au_users.au_user_id = products.au_user_id
+       WHERE products.product_id = $1`,
+      [productId]
+    );
+    return result.rows;
   },
 
   create: async (data) => {

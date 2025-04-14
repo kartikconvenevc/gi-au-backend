@@ -85,3 +85,12 @@ CREATE TABLE notifications (
     FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
+ALTER TABLE users
+ADD COLUMN name TEXT,
+ADD COLUMN email TEXT,
+ADD COLUMN address TEXT,
+ADD COLUMN age INTEGER,
+ADD COLUMN phone TEXT;
+
+
+ALTER TABLE au_users ADD COLUMN photos_uploaded TEXT;
