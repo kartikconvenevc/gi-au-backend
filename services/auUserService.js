@@ -35,7 +35,7 @@ const AuUserService = {
       name, address, age, phone, email, product_id, area_of_production,
       aadhar, pan, documentary_proof, annual_production, annual_turnover,
       years_of_production, association_id, signature_uploaded, aadhar_uploaded,
-      pan_uploaded
+      pan_uploaded, photo_uploaded
     } = data;
 
     const res = await db.query(
@@ -43,15 +43,15 @@ const AuUserService = {
         name, address, age, phone, email, product_id, area_of_production,
         aadhar, pan, documentary_proof, annual_production, annual_turnover,
         years_of_production, association_id, signature_uploaded, aadhar_uploaded,
-        pan_uploaded, updated_at
+        pan_uploaded, photo_uploaded, updated_at
       ) VALUES (
         $1, $2, $3, $4, $5, $6, $7, $8, $9, $10,
-        $11, $12, $13, $14, $15, $16, $17, NOW()
+        $11, $12, $13, $14, $15, $16, $17, $18, NOW()
       ) RETURNING *`,
       [name, address, age, phone, email, product_id, area_of_production,
        aadhar, pan, documentary_proof, annual_production, annual_turnover,
        years_of_production, association_id, signature_uploaded, aadhar_uploaded,
-       pan_uploaded]
+       pan_uploaded, photo_uploaded]
     );
     return res.rows[0];
   },
@@ -61,7 +61,7 @@ const AuUserService = {
       name, address, age, phone, email, product_id, area_of_production,
       aadhar, pan, documentary_proof, annual_production, annual_turnover,
       years_of_production, association_id, signature_uploaded, aadhar_uploaded,
-      pan_uploaded
+      pan_uploaded, photo_uploaded
     } = data;
 
     const res = await db.query(
@@ -70,12 +70,12 @@ const AuUserService = {
         area_of_production = $7, aadhar = $8, pan = $9, documentary_proof = $10,
         annual_production = $11, annual_turnover = $12, years_of_production = $13,
         association_id = $14, signature_uploaded = $15, aadhar_uploaded = $16,
-        pan_uploaded = $17, updated_at = NOW()
-      WHERE id = $18 RETURNING *`,
+        pan_uploaded = $17, photo_uploaded = $18, updated_at = NOW()
+      WHERE id = $19 RETURNING *`,
       [name, address, age, phone, email, product_id, area_of_production,
        aadhar, pan, documentary_proof, annual_production, annual_turnover,
        years_of_production, association_id, signature_uploaded, aadhar_uploaded,
-       pan_uploaded, id]
+       pan_uploaded, photo_uploaded, id]
     );
     return res.rows[0];
   },

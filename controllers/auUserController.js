@@ -1,9 +1,9 @@
-const service = require('../services/auUserService');
+const AuUserService = require('../services/auUserService');
 
 module.exports = {
   getAll: async (req, res) => {
     try {
-      const data = await service.getAll();
+      const data = await AuUserService.getAll();
       res.json(data);
     } catch (e) {
       res.status(500).json({ error: e.message });
@@ -19,17 +19,16 @@ module.exports = {
       res.status(500).json({ error: err.message });
     }
   },
-  
 
   getById: async (req, res) => {
     try {
-      const data = await service.getById(req.params.id);
+      const data = await AuUserService.getById(req.params.id);
       res.json(data);
     } catch (e) {
       res.status(500).json({ error: e.message });
     }
   },
-  
+
   getByProductId: async (req, res) => {
     try {
       const auUsers = await AuUserService.getAuUsersByProductId(req.params.productId);
@@ -39,27 +38,19 @@ module.exports = {
     }
   },
 
-  // create: async (req, res) => {
-  //   try {
-  //     const newItem = await service.create(req.body);
-  //     res.status(201).json(newItem);
-  //   } catch (e) {
-  //     res.status(500).json({ error: e.message });
-  //   }
-  // },
-
   create: async (req, res) => {
     try {
       const files = req.files;
       const body = req.body;
-  
-      const newItem = await service.create({
+
+      const newItem = await AuUserService.create({
         ...body,
         signature_uploaded: files?.signature_uploaded?.[0]?.path || null,
         aadhar_uploaded: files?.aadhar_uploaded?.[0]?.path || null,
         pan_uploaded: files?.pan_uploaded?.[0]?.path || null,
+        photo_uploaded: files?.photo_uploaded?.[0]?.path || null,
       });
-  
+
       res.status(201).json(newItem);
     } catch (e) {
       res.status(500).json({ error: e.message });
@@ -68,7 +59,7 @@ module.exports = {
 
   update: async (req, res) => {
     try {
-      const updated = await service.update(req.params.id, req.body);
+      const updated = await AuUserService.update(req.params.id, req.body);
       res.json(updated);
     } catch (e) {
       res.status(500).json({ error: e.message });
@@ -77,7 +68,7 @@ module.exports = {
 
   delete: async (req, res) => {
     try {
-      const result = await service.delete(req.params.id);
+      const result = await AuUserService.delete(req.params.id);
       res.json(result);
     } catch (e) {
       res.status(500).json({ error: e.message });
